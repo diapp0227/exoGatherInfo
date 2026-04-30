@@ -3,10 +3,215 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mock Title</title>
+    <title>EXO Info</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        background: #0d0d0d;
+        color: #f0f0f0;
+        min-height: 100vh;
+      }
+
+      header {
+        background: linear-gradient(135deg, #1a1a2e, #16213e);
+        padding: 2rem;
+        text-align: center;
+        border-bottom: 2px solid #c9a84c;
+      }
+
+      header h1 {
+        font-size: 3rem;
+        letter-spacing: 0.3em;
+        color: #c9a84c;
+      }
+
+      header p {
+        margin-top: 0.5rem;
+        color: #aaa;
+        letter-spacing: 0.1em;
+      }
+
+      main {
+        max-width: 1000px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+      }
+
+      section {
+        margin-bottom: 3rem;
+      }
+
+      section h2 {
+        font-size: 1.4rem;
+        color: #c9a84c;
+        border-left: 4px solid #c9a84c;
+        padding-left: 0.8rem;
+        margin-bottom: 1.2rem;
+        letter-spacing: 0.1em;
+      }
+
+      .members-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 1rem;
+      }
+
+      .member-card {
+        background: #1a1a2e;
+        border: 1px solid #333;
+        border-radius: 8px;
+        padding: 1.2rem;
+        text-align: center;
+        transition: border-color 0.2s, transform 0.2s;
+      }
+
+      .member-card:hover {
+        border-color: #c9a84c;
+        transform: translateY(-3px);
+      }
+
+      .member-card .name-kr {
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #fff;
+      }
+
+      .member-card .name-ja {
+        font-size: 0.8rem;
+        color: #aaa;
+        margin-top: 0.2rem;
+      }
+
+      .member-card .position {
+        font-size: 0.75rem;
+        color: #c9a84c;
+        margin-top: 0.5rem;
+      }
+
+      .info-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .info-table th,
+      .info-table td {
+        padding: 0.8rem 1rem;
+        border-bottom: 1px solid #222;
+        text-align: left;
+      }
+
+      .info-table th {
+        color: #c9a84c;
+        width: 30%;
+        font-weight: normal;
+      }
+
+      .info-table td {
+        color: #ddd;
+      }
+
+      footer {
+        text-align: center;
+        padding: 2rem;
+        color: #555;
+        font-size: 0.8rem;
+        border-top: 1px solid #222;
+      }
+    </style>
   </head>
   <body>
-    <h1>Mock h1</h1>
-    <p>Mock p</p>
+    <header>
+      <h1>EXO</h1>
+      <p>엑소 — We Are One</p>
+    </header>
+
+    <main>
+      <section>
+        <h2>グループ概要</h2>
+        <table class="info-table">
+          <tr>
+            <th>デビュー</th>
+            <td>2012年4月8日</td>
+          </tr>
+          <tr>
+            <th>所属事務所</th>
+            <td>SM Entertainment</td>
+          </tr>
+          <tr>
+            <th>出身</th>
+            <td>韓国 / 中国</td>
+          </tr>
+          <tr>
+            <th>公式カラー</th>
+            <td>シルバー / ゴールド</td>
+          </tr>
+          <tr>
+            <th>ファンダム名</th>
+            <td>EXO-L</td>
+          </tr>
+        </table>
+      </section>
+
+      <section>
+        <h2>メンバー</h2>
+        <div class="members-grid">
+          <div class="member-card">
+            <div class="name-kr">수호 / Suho</div>
+            <div class="name-ja">スホ</div>
+            <div class="position">リーダー / ボーカル</div>
+          </div>
+          <div class="member-card">
+            <div class="name-kr">백현 / Baekhyun</div>
+            <div class="name-ja">ベクヒョン</div>
+            <div class="position">メインボーカル</div>
+          </div>
+          <div class="member-card">
+            <div class="name-kr">찬열 / Chanyeol</div>
+            <div class="name-ja">チャニョル</div>
+            <div class="position">ラップ / ボーカル</div>
+          </div>
+          <div class="member-card">
+            <div class="name-kr">디오 / D.O.</div>
+            <div class="name-ja">ディオ</div>
+            <div class="position">メインボーカル</div>
+          </div>
+          <div class="member-card">
+            <div class="name-kr">카이 / Kai</div>
+            <div class="name-ja">カイ</div>
+            <div class="position">メインダンサー / ボーカル</div>
+          </div>
+          <div class="member-card">
+            <div class="name-kr">세훈 / Sehun</div>
+            <div class="name-ja">セフン</div>
+            <div class="position">ラップ / ボーカル</div>
+          </div>
+          <div class="member-card">
+            <div class="name-kr">시우민 / Xiumin</div>
+            <div class="name-ja">シウミン</div>
+            <div class="position">ボーカル</div>
+          </div>
+          <div class="member-card">
+            <div class="name-kr">레이 / Lay</div>
+            <div class="name-ja">レイ</div>
+            <div class="position">ダンス / ボーカル</div>
+          </div>
+          <div class="member-card">
+            <div class="name-kr">첸 / Chen</div>
+            <div class="name-ja">チェン</div>
+            <div class="position">メインボーカル</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      EXO Info — unofficial fan site
+    </footer>
   </body>
 </html>

@@ -43,6 +43,7 @@
       nav .logo { font-size: 1.1rem; font-weight: bold; color: var(--gold); letter-spacing: 0.2em; text-decoration: none; }
       nav a { color: var(--text-sub); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.05em; transition: color 0.2s; }
       nav a:hover { color: var(--gold); }
+      .nav-new { color: var(--gold) !important; font-size: 0.72rem; border: 1px solid rgba(201,168,76,0.4); border-radius: 20px; padding: 0.15rem 0.6rem; }
 
       /* HERO */
       .hero {
@@ -102,6 +103,23 @@
         cursor: default;
       }
       .member-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 8px 30px rgba(201,168,76,0.12); }
+      .member-photo-wrap {
+        width: 100%;
+        aspect-ratio: 1;
+        border-radius: 8px;
+        overflow: hidden;
+        margin-bottom: 1rem;
+        background: var(--bg-card2);
+        border: 1px solid var(--border);
+      }
+      .member-photo-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.3s;
+      }
+      .member-card:hover .member-photo-wrap img { transform: scale(1.05); }
       .member-number { font-size: 0.68rem; color: var(--gold); letter-spacing: 0.15em; margin-bottom: 0.8rem; }
       .member-name-kr { font-size: 1.15rem; font-weight: bold; }
       .member-name-ja { font-size: 0.8rem; color: var(--text-sub); margin-top: 0.1rem; }
@@ -167,6 +185,32 @@
       .subunit-works { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
       .subunit-work { font-size: 0.72rem; padding: 0.2rem 0.6rem; border-radius: 4px; background: var(--bg-card2); border: 1px solid var(--border); color: var(--text-sub); }
 
+      /* NEWS */
+      .news-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+      .news-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 1.4rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        transition: border-color 0.2s;
+      }
+      .news-card:hover { border-color: var(--gold); }
+      .news-date { font-size: 0.7rem; color: var(--gold); letter-spacing: 0.1em; }
+      .news-tag {
+        align-self: flex-start;
+        font-size: 0.68rem;
+        padding: 0.2rem 0.6rem;
+        border-radius: 4px;
+        background: var(--bg-card2);
+        border: 1px solid var(--border);
+        color: var(--text-sub);
+      }
+      .news-title { font-size: 1rem; font-weight: bold; line-height: 1.4; }
+      .news-body { font-size: 0.82rem; color: var(--text-sub); line-height: 1.6; }
+
       footer { text-align: center; padding: 2.5rem 2rem; color: var(--text-sub); font-size: 0.78rem; border-top: 1px solid var(--border); letter-spacing: 0.05em; }
       footer .exo-l { color: var(--gold); }
     </style>
@@ -180,6 +224,7 @@
       <a href="#songs">おすすめ曲</a>
       <a href="#discography">ディスコグラフィー</a>
       <a href="#subunits">サブユニット</a>
+      <a href="#news" class="nav-new">NEW</a>
     </nav>
 
     <div class="hero">
@@ -217,6 +262,10 @@
       <div class="members-grid">
 
         <div class="member-card">
+          <div class="member-photo-wrap">
+            <img src="images/suho.jpg" alt="スホ" loading="lazy"
+              onerror="this.src='https://placehold.co/280x280/1a1a2e/c9a84c?text=SUHO'">
+          </div>
           <div class="member-number">01</div>
           <div class="member-name-kr">수호 / Suho</div>
           <div class="member-name-ja">スホ</div>
@@ -231,6 +280,10 @@
         </div>
 
         <div class="member-card">
+          <div class="member-photo-wrap">
+            <img src="images/xiumin.jpg" alt="シウミン" loading="lazy"
+              onerror="this.src='https://placehold.co/280x280/1a1a2e/c9a84c?text=XIUMIN'">
+          </div>
           <div class="member-number">02</div>
           <div class="member-name-kr">시우민 / Xiumin</div>
           <div class="member-name-ja">シウミン</div>
@@ -245,6 +298,10 @@
         </div>
 
         <div class="member-card">
+          <div class="member-photo-wrap">
+            <img src="images/lay.jpg" alt="レイ" loading="lazy"
+              onerror="this.src='https://placehold.co/280x280/1a1a2e/c9a84c?text=LAY'">
+          </div>
           <div class="member-number">03</div>
           <div class="member-name-kr">레이 / Lay</div>
           <div class="member-name-ja">レイ</div>
@@ -259,6 +316,10 @@
         </div>
 
         <div class="member-card">
+          <div class="member-photo-wrap">
+            <img src="images/baekhyun.jpg" alt="ベクヒョン" loading="lazy"
+              onerror="this.src='https://placehold.co/280x280/1a1a2e/c9a84c?text=BAEKHYUN'">
+          </div>
           <div class="member-number">04</div>
           <div class="member-name-kr">백현 / Baekhyun</div>
           <div class="member-name-ja">ベクヒョン</div>
@@ -273,6 +334,10 @@
         </div>
 
         <div class="member-card">
+          <div class="member-photo-wrap">
+            <img src="images/chen.jpg" alt="チェン" loading="lazy"
+              onerror="this.src='https://placehold.co/280x280/1a1a2e/c9a84c?text=CHEN'">
+          </div>
           <div class="member-number">05</div>
           <div class="member-name-kr">첸 / Chen</div>
           <div class="member-name-ja">チェン</div>
@@ -287,6 +352,10 @@
         </div>
 
         <div class="member-card">
+          <div class="member-photo-wrap">
+            <img src="images/chanyeol.jpg" alt="チャニョル" loading="lazy"
+              onerror="this.src='https://placehold.co/280x280/1a1a2e/c9a84c?text=CHANYEOL'">
+          </div>
           <div class="member-number">06</div>
           <div class="member-name-kr">찬열 / Chanyeol</div>
           <div class="member-name-ja">チャニョル</div>
@@ -301,6 +370,10 @@
         </div>
 
         <div class="member-card">
+          <div class="member-photo-wrap">
+            <img src="images/do.jpg" alt="ディオ" loading="lazy"
+              onerror="this.src='https://placehold.co/280x280/1a1a2e/c9a84c?text=D.O.'">
+          </div>
           <div class="member-number">07</div>
           <div class="member-name-kr">디오 / D.O.</div>
           <div class="member-name-ja">ディオ</div>
@@ -315,6 +388,10 @@
         </div>
 
         <div class="member-card">
+          <div class="member-photo-wrap">
+            <img src="images/kai.jpg" alt="カイ" loading="lazy"
+              onerror="this.src='https://placehold.co/280x280/1a1a2e/c9a84c?text=KAI'">
+          </div>
           <div class="member-number">08</div>
           <div class="member-name-kr">카이 / Kai</div>
           <div class="member-name-ja">カイ</div>
@@ -329,6 +406,10 @@
         </div>
 
         <div class="member-card">
+          <div class="member-photo-wrap">
+            <img src="images/sehun.jpg" alt="セフン" loading="lazy"
+              onerror="this.src='https://placehold.co/280x280/1a1a2e/c9a84c?text=SEHUN'">
+          </div>
           <div class="member-number">09</div>
           <div class="member-name-kr">세훈 / Sehun</div>
           <div class="member-name-ja">セフン</div>
@@ -566,6 +647,57 @@
             <span class="subunit-work">Growl</span>
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- NEWS -->
+    <section id="news">
+      <p class="section-title">Latest</p>
+      <h2 class="section-heading">最新情報</h2>
+      <div class="news-grid">
+
+        <div class="news-card">
+          <div class="news-date">2023.07</div>
+          <span class="news-tag">リリース</span>
+          <div class="news-title">7th正規アルバム「EXIST」リリース</div>
+          <div class="news-body">約4年ぶりとなる正規アルバム。タイトル曲「Let Me In（偶然）」をはじめ、「Hear Me Out」「Cream Soda」など多彩な楽曲を収録。</div>
+        </div>
+
+        <div class="news-card">
+          <div class="news-date">2023.04</div>
+          <span class="news-tag">セフン・カイ</span>
+          <div class="news-title">セフン・カイ、兵役を満了し除隊</div>
+          <div class="news-body">セフンが2023年4月、カイが2023年5月にそれぞれ軍服務を終え除隊。9名全員が揃い、アルバム制作・活動を再開した。</div>
+        </div>
+
+        <div class="news-card">
+          <div class="news-date">2022.10</div>
+          <span class="news-tag">スホ</span>
+          <div class="news-title">スホ、ソロ2ndミニアルバム「Binary Code」発売</div>
+          <div class="news-body">除隊後初のソロ作品。サウンドトラック的な深みと、スホの表現力が光るバラード中心のアルバム。</div>
+        </div>
+
+        <div class="news-card">
+          <div class="news-date">2022.01</div>
+          <span class="news-tag">チェン</span>
+          <div class="news-title">チェン、ソロ3rdミニアルバム「DOORS」発売</div>
+          <div class="news-body">EXOきってのメインボーカルが届ける感情豊かなソロ作品。「Beautiful goodbye」などEXO-Lの心に響く楽曲が揃う。</div>
+        </div>
+
+        <div class="news-card">
+          <div class="news-date">2021.06</div>
+          <span class="news-tag">グループ</span>
+          <div class="news-title">スペシャルアルバム「Don't Fight the Feeling」発売</div>
+          <div class="news-body">2019年以来約2年ぶりのグループ活動。SF映画を想起させるスタイリッシュなMVと爽快なサウンドで復帰を飾った。</div>
+        </div>
+
+        <div class="news-card">
+          <div class="news-date">2020.11</div>
+          <span class="news-tag">カイ</span>
+          <div class="news-title">カイ、ソロデビューアルバム「KAI（开）」発売</div>
+          <div class="news-body">EXOメインダンサーとしての実力をそのままソロに昇華。アーティスティックなビジュアルと洗練されたサウンドが話題に。</div>
+        </div>
+
       </div>
     </section>
 

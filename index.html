@@ -5,213 +5,573 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EXO Info</title>
     <style>
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
+      :root {
+        --gold: #c9a84c;
+        --bg: #0a0a0f;
+        --bg-card: #13131f;
+        --bg-card2: #1a1a2e;
+        --border: #2a2a3e;
+        --text: #f0f0f0;
+        --text-sub: #888;
       }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
 
       body {
-        font-family: "Helvetica Neue", Arial, sans-serif;
-        background: #0d0d0d;
-        color: #f0f0f0;
+        font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", sans-serif;
+        background: var(--bg);
+        color: var(--text);
         min-height: 100vh;
+        line-height: 1.6;
       }
 
-      header {
-        background: linear-gradient(135deg, #1a1a2e, #16213e);
-        padding: 2rem;
+      /* NAV */
+      nav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: rgba(10, 10, 15, 0.93);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid var(--border);
+        padding: 0 2rem;
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+        height: 52px;
+      }
+      nav .logo { font-size: 1.1rem; font-weight: bold; color: var(--gold); letter-spacing: 0.2em; text-decoration: none; }
+      nav a { color: var(--text-sub); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.05em; transition: color 0.2s; }
+      nav a:hover { color: var(--gold); }
+
+      /* HERO */
+      .hero {
+        background: linear-gradient(160deg, #0d0d1a 0%, #1a1030 50%, #0d0d1a 100%);
         text-align: center;
-        border-bottom: 2px solid #c9a84c;
+        padding: 5rem 2rem 4rem;
+        border-bottom: 1px solid var(--border);
+        position: relative;
+        overflow: hidden;
       }
-
-      header h1 {
-        font-size: 3rem;
-        letter-spacing: 0.3em;
-        color: #c9a84c;
+      .hero::before {
+        content: "EXO";
+        position: absolute;
+        font-size: 18rem;
+        font-weight: 900;
+        color: rgba(201, 168, 76, 0.04);
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        letter-spacing: 0.2em;
+        pointer-events: none;
+        user-select: none;
       }
+      .hero h1 { font-size: 4rem; letter-spacing: 0.5em; color: var(--gold); text-shadow: 0 0 40px rgba(201,168,76,0.4); position: relative; }
+      .hero .tagline { margin-top: 0.8rem; font-size: 1rem; color: var(--text-sub); letter-spacing: 0.15em; position: relative; }
+      .hero .badges { margin-top: 1.5rem; display: flex; justify-content: center; gap: 0.8rem; flex-wrap: wrap; position: relative; }
+      .badge { background: var(--bg-card2); border: 1px solid var(--border); border-radius: 20px; padding: 0.3rem 1rem; font-size: 0.78rem; color: var(--text-sub); }
+      .badge span { color: var(--gold); }
 
-      header p {
-        margin-top: 0.5rem;
-        color: #aaa;
-        letter-spacing: 0.1em;
-      }
+      /* SECTION */
+      section { max-width: 1100px; margin: 0 auto; padding: 4rem 2rem; border-bottom: 1px solid var(--border); }
+      section:last-of-type { border-bottom: none; }
+      .section-title { font-size: 0.7rem; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; margin-bottom: 0.5rem; }
+      .section-heading { font-size: 1.8rem; font-weight: bold; margin-bottom: 2rem; }
 
-      main {
-        max-width: 1000px;
-        margin: 2rem auto;
-        padding: 0 1rem;
-      }
-
-      section {
-        margin-bottom: 3rem;
-      }
-
-      section h2 {
-        font-size: 1.4rem;
-        color: #c9a84c;
-        border-left: 4px solid #c9a84c;
-        padding-left: 0.8rem;
-        margin-bottom: 1.2rem;
-        letter-spacing: 0.1em;
-      }
-
-      .members-grid {
+      /* OVERVIEW */
+      .overview-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-        gap: 1rem;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1px;
+        background: var(--border);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        overflow: hidden;
       }
+      .overview-item { background: var(--bg-card); padding: 1.2rem 1.5rem; display: flex; flex-direction: column; gap: 0.3rem; }
+      .overview-item .label { font-size: 0.72rem; color: var(--text-sub); letter-spacing: 0.1em; text-transform: uppercase; }
+      .overview-item .value { font-size: 1rem; color: var(--text); }
 
+      /* MEMBERS */
+      .members-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
       .member-card {
-        background: #1a1a2e;
-        border: 1px solid #333;
-        border-radius: 8px;
-        padding: 1.2rem;
-        text-align: center;
-        transition: border-color 0.2s, transform 0.2s;
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 1.5rem 1.2rem;
+        transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+        cursor: default;
+      }
+      .member-card:hover { border-color: var(--gold); transform: translateY(-4px); box-shadow: 0 8px 30px rgba(201,168,76,0.12); }
+      .member-number { font-size: 0.68rem; color: var(--gold); letter-spacing: 0.15em; margin-bottom: 0.8rem; }
+      .member-name-kr { font-size: 1.15rem; font-weight: bold; }
+      .member-name-ja { font-size: 0.8rem; color: var(--text-sub); margin-top: 0.1rem; }
+      .member-divider { height: 1px; background: var(--border); margin: 0.9rem 0; }
+      .member-meta { display: flex; flex-direction: column; gap: 0.35rem; }
+      .member-meta-row { display: flex; gap: 0.5rem; font-size: 0.78rem; }
+      .member-meta-row .key { color: var(--text-sub); min-width: 60px; }
+      .member-meta-row .val { color: var(--text); }
+      .member-power { margin-top: 0.8rem; display: inline-block; font-size: 0.72rem; padding: 0.25rem 0.7rem; border-radius: 20px; background: rgba(201,168,76,0.1); color: var(--gold); border: 1px solid rgba(201,168,76,0.3); }
+
+      /* RECOMMENDED SONGS */
+      .songs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1rem; }
+      .song-card {
+        background: var(--bg-card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 1.3rem 1.4rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        text-decoration: none;
+        transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+      }
+      .song-card:hover { border-color: #ff4444; transform: translateY(-3px); box-shadow: 0 8px 24px rgba(255,68,68,0.1); }
+      .song-header { display: flex; align-items: center; gap: 0.7rem; }
+      .yt-icon {
+        width: 32px; height: 32px; border-radius: 6px;
+        background: #ff0000;
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0;
+      }
+      .yt-icon svg { width: 16px; height: 16px; fill: white; }
+      .song-title { font-size: 1rem; font-weight: bold; color: var(--text); }
+      .song-album { font-size: 0.75rem; color: var(--text-sub); }
+      .song-desc { font-size: 0.8rem; color: var(--text-sub); line-height: 1.5; }
+      .song-tag {
+        align-self: flex-start;
+        font-size: 0.68rem;
+        padding: 0.2rem 0.6rem;
+        border-radius: 4px;
+        background: var(--bg-card2);
+        border: 1px solid var(--border);
+        color: var(--text-sub);
       }
 
-      .member-card:hover {
-        border-color: #c9a84c;
-        transform: translateY(-3px);
-      }
+      /* DISCOGRAPHY */
+      .albums-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+      .album-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 1.3rem 1.4rem; transition: border-color 0.2s; }
+      .album-card:hover { border-color: var(--gold); }
+      .album-year { font-size: 0.7rem; color: var(--gold); letter-spacing: 0.1em; margin-bottom: 0.4rem; }
+      .album-title { font-size: 1.05rem; font-weight: bold; }
+      .album-title-ko { font-size: 0.82rem; color: var(--text-sub); margin-top: 0.2rem; }
+      .album-type { margin-top: 0.7rem; display: inline-block; font-size: 0.68rem; padding: 0.2rem 0.6rem; border-radius: 4px; background: var(--bg-card2); color: var(--text-sub); border: 1px solid var(--border); }
+      .album-tracks { margin-top: 0.7rem; font-size: 0.8rem; color: var(--text-sub); }
 
-      .member-card .name-kr {
-        font-size: 1.1rem;
-        font-weight: bold;
-        color: #fff;
-      }
+      /* SUBUNITS */
+      .subunits-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.2rem; }
+      .subunit-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; transition: border-color 0.2s; }
+      .subunit-card:hover { border-color: var(--gold); }
+      .subunit-name { font-size: 1.3rem; font-weight: bold; color: var(--gold); letter-spacing: 0.1em; }
+      .subunit-members { margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-sub); }
+      .subunit-debut { margin-top: 0.8rem; font-size: 0.78rem; color: var(--text-sub); }
+      .subunit-works { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+      .subunit-work { font-size: 0.72rem; padding: 0.2rem 0.6rem; border-radius: 4px; background: var(--bg-card2); border: 1px solid var(--border); color: var(--text-sub); }
 
-      .member-card .name-ja {
-        font-size: 0.8rem;
-        color: #aaa;
-        margin-top: 0.2rem;
-      }
-
-      .member-card .position {
-        font-size: 0.75rem;
-        color: #c9a84c;
-        margin-top: 0.5rem;
-      }
-
-      .info-table {
-        width: 100%;
-        border-collapse: collapse;
-      }
-
-      .info-table th,
-      .info-table td {
-        padding: 0.8rem 1rem;
-        border-bottom: 1px solid #222;
-        text-align: left;
-      }
-
-      .info-table th {
-        color: #c9a84c;
-        width: 30%;
-        font-weight: normal;
-      }
-
-      .info-table td {
-        color: #ddd;
-      }
-
-      footer {
-        text-align: center;
-        padding: 2rem;
-        color: #555;
-        font-size: 0.8rem;
-        border-top: 1px solid #222;
-      }
+      footer { text-align: center; padding: 2.5rem 2rem; color: var(--text-sub); font-size: 0.78rem; border-top: 1px solid var(--border); letter-spacing: 0.05em; }
+      footer .exo-l { color: var(--gold); }
     </style>
   </head>
   <body>
-    <header>
+
+    <nav>
+      <a href="#" class="logo">EXO</a>
+      <a href="#overview">概要</a>
+      <a href="#members">メンバー</a>
+      <a href="#songs">おすすめ曲</a>
+      <a href="#discography">ディスコグラフィー</a>
+      <a href="#subunits">サブユニット</a>
+    </nav>
+
+    <div class="hero">
       <h1>EXO</h1>
-      <p>엑소 — We Are One</p>
-    </header>
+      <p class="tagline">엑소 &nbsp;·&nbsp; We Are One &nbsp;·&nbsp; 2012 —</p>
+      <div class="badges">
+        <div class="badge">所属 <span>SM Entertainment</span></div>
+        <div class="badge">デビュー <span>2012.04.08</span></div>
+        <div class="badge">ファンダム <span>EXO-L</span></div>
+        <div class="badge">カラー <span>Silver / Gold</span></div>
+      </div>
+    </div>
 
-    <main>
-      <section>
-        <h2>グループ概要</h2>
-        <table class="info-table">
-          <tr>
-            <th>デビュー</th>
-            <td>2012年4月8日</td>
-          </tr>
-          <tr>
-            <th>所属事務所</th>
-            <td>SM Entertainment</td>
-          </tr>
-          <tr>
-            <th>出身</th>
-            <td>韓国 / 中国</td>
-          </tr>
-          <tr>
-            <th>公式カラー</th>
-            <td>シルバー / ゴールド</td>
-          </tr>
-          <tr>
-            <th>ファンダム名</th>
-            <td>EXO-L</td>
-          </tr>
-        </table>
-      </section>
+    <!-- OVERVIEW -->
+    <section id="overview">
+      <p class="section-title">About</p>
+      <h2 class="section-heading">グループ概要</h2>
+      <div class="overview-grid">
+        <div class="overview-item"><span class="label">グループ名</span><span class="value">EXO（엑소）</span></div>
+        <div class="overview-item"><span class="label">デビュー日</span><span class="value">2012年4月8日</span></div>
+        <div class="overview-item"><span class="label">所属事務所</span><span class="value">SM Entertainment</span></div>
+        <div class="overview-item"><span class="label">出身国</span><span class="value">韓国 / 中国</span></div>
+        <div class="overview-item"><span class="label">活動言語</span><span class="value">韓国語 / 中国語 / 日本語</span></div>
+        <div class="overview-item"><span class="label">公式カラー</span><span class="value">シルバー / ゴールド</span></div>
+        <div class="overview-item"><span class="label">ファンダム名</span><span class="value">EXO-L</span></div>
+        <div class="overview-item"><span class="label">コンセプト</span><span class="value">超能力を持つ惑星EXOの戦士たち</span></div>
+        <div class="overview-item"><span class="label">現メンバー数</span><span class="value">9名</span></div>
+      </div>
+    </section>
 
-      <section>
-        <h2>メンバー</h2>
-        <div class="members-grid">
-          <div class="member-card">
-            <div class="name-kr">수호 / Suho</div>
-            <div class="name-ja">スホ</div>
-            <div class="position">リーダー / ボーカル</div>
+    <!-- MEMBERS -->
+    <section id="members">
+      <p class="section-title">Members</p>
+      <h2 class="section-heading">メンバー</h2>
+      <div class="members-grid">
+
+        <div class="member-card">
+          <div class="member-number">01</div>
+          <div class="member-name-kr">수호 / Suho</div>
+          <div class="member-name-ja">スホ</div>
+          <div class="member-divider"></div>
+          <div class="member-meta">
+            <div class="member-meta-row"><span class="key">本名</span><span class="val">金俊勉</span></div>
+            <div class="member-meta-row"><span class="key">生年月日</span><span class="val">1991.05.22</span></div>
+            <div class="member-meta-row"><span class="key">出身</span><span class="val">韓国・ソウル</span></div>
+            <div class="member-meta-row"><span class="key">担当</span><span class="val">リーダー / ボーカル</span></div>
           </div>
-          <div class="member-card">
-            <div class="name-kr">백현 / Baekhyun</div>
-            <div class="name-ja">ベクヒョン</div>
-            <div class="position">メインボーカル</div>
+          <span class="member-power">💧 Water</span>
+        </div>
+
+        <div class="member-card">
+          <div class="member-number">02</div>
+          <div class="member-name-kr">시우민 / Xiumin</div>
+          <div class="member-name-ja">シウミン</div>
+          <div class="member-divider"></div>
+          <div class="member-meta">
+            <div class="member-meta-row"><span class="key">本名</span><span class="val">金珉錫</span></div>
+            <div class="member-meta-row"><span class="key">生年月日</span><span class="val">1990.03.26</span></div>
+            <div class="member-meta-row"><span class="key">出身</span><span class="val">韓国・京畿道</span></div>
+            <div class="member-meta-row"><span class="key">担当</span><span class="val">ボーカル</span></div>
           </div>
-          <div class="member-card">
-            <div class="name-kr">찬열 / Chanyeol</div>
-            <div class="name-ja">チャニョル</div>
-            <div class="position">ラップ / ボーカル</div>
+          <span class="member-power">❄️ Frost</span>
+        </div>
+
+        <div class="member-card">
+          <div class="member-number">03</div>
+          <div class="member-name-kr">레이 / Lay</div>
+          <div class="member-name-ja">レイ</div>
+          <div class="member-divider"></div>
+          <div class="member-meta">
+            <div class="member-meta-row"><span class="key">本名</span><span class="val">張藝興</span></div>
+            <div class="member-meta-row"><span class="key">生年月日</span><span class="val">1991.10.07</span></div>
+            <div class="member-meta-row"><span class="key">出身</span><span class="val">中国・湖南省</span></div>
+            <div class="member-meta-row"><span class="key">担当</span><span class="val">ボーカル / ダンス</span></div>
           </div>
-          <div class="member-card">
-            <div class="name-kr">디오 / D.O.</div>
-            <div class="name-ja">ディオ</div>
-            <div class="position">メインボーカル</div>
+          <span class="member-power">✨ Healing</span>
+        </div>
+
+        <div class="member-card">
+          <div class="member-number">04</div>
+          <div class="member-name-kr">백현 / Baekhyun</div>
+          <div class="member-name-ja">ベクヒョン</div>
+          <div class="member-divider"></div>
+          <div class="member-meta">
+            <div class="member-meta-row"><span class="key">本名</span><span class="val">卞伯賢</span></div>
+            <div class="member-meta-row"><span class="key">生年月日</span><span class="val">1992.05.06</span></div>
+            <div class="member-meta-row"><span class="key">出身</span><span class="val">韓国・京畿道</span></div>
+            <div class="member-meta-row"><span class="key">担当</span><span class="val">メインボーカル</span></div>
           </div>
-          <div class="member-card">
-            <div class="name-kr">카이 / Kai</div>
-            <div class="name-ja">カイ</div>
-            <div class="position">メインダンサー / ボーカル</div>
+          <span class="member-power">💡 Light</span>
+        </div>
+
+        <div class="member-card">
+          <div class="member-number">05</div>
+          <div class="member-name-kr">첸 / Chen</div>
+          <div class="member-name-ja">チェン</div>
+          <div class="member-divider"></div>
+          <div class="member-meta">
+            <div class="member-meta-row"><span class="key">本名</span><span class="val">金鐘大</span></div>
+            <div class="member-meta-row"><span class="key">生年月日</span><span class="val">1992.09.21</span></div>
+            <div class="member-meta-row"><span class="key">出身</span><span class="val">韓国・仁川</span></div>
+            <div class="member-meta-row"><span class="key">担当</span><span class="val">メインボーカル</span></div>
           </div>
-          <div class="member-card">
-            <div class="name-kr">세훈 / Sehun</div>
-            <div class="name-ja">セフン</div>
-            <div class="position">ラップ / ボーカル</div>
+          <span class="member-power">⚡ Lightning</span>
+        </div>
+
+        <div class="member-card">
+          <div class="member-number">06</div>
+          <div class="member-name-kr">찬열 / Chanyeol</div>
+          <div class="member-name-ja">チャニョル</div>
+          <div class="member-divider"></div>
+          <div class="member-meta">
+            <div class="member-meta-row"><span class="key">本名</span><span class="val">朴燦烈</span></div>
+            <div class="member-meta-row"><span class="key">生年月日</span><span class="val">1992.11.27</span></div>
+            <div class="member-meta-row"><span class="key">出身</span><span class="val">韓国・ソウル</span></div>
+            <div class="member-meta-row"><span class="key">担当</span><span class="val">ラップ / ボーカル</span></div>
           </div>
-          <div class="member-card">
-            <div class="name-kr">시우민 / Xiumin</div>
-            <div class="name-ja">シウミン</div>
-            <div class="position">ボーカル</div>
+          <span class="member-power">🔥 Fire</span>
+        </div>
+
+        <div class="member-card">
+          <div class="member-number">07</div>
+          <div class="member-name-kr">디오 / D.O.</div>
+          <div class="member-name-ja">ディオ</div>
+          <div class="member-divider"></div>
+          <div class="member-meta">
+            <div class="member-meta-row"><span class="key">本名</span><span class="val">都暻秀</span></div>
+            <div class="member-meta-row"><span class="key">生年月日</span><span class="val">1993.01.12</span></div>
+            <div class="member-meta-row"><span class="key">出身</span><span class="val">韓国・京畿道</span></div>
+            <div class="member-meta-row"><span class="key">担当</span><span class="val">メインボーカル</span></div>
           </div>
-          <div class="member-card">
-            <div class="name-kr">레이 / Lay</div>
-            <div class="name-ja">レイ</div>
-            <div class="position">ダンス / ボーカル</div>
+          <span class="member-power">🌍 Earth</span>
+        </div>
+
+        <div class="member-card">
+          <div class="member-number">08</div>
+          <div class="member-name-kr">카이 / Kai</div>
+          <div class="member-name-ja">カイ</div>
+          <div class="member-divider"></div>
+          <div class="member-meta">
+            <div class="member-meta-row"><span class="key">本名</span><span class="val">金鍾仁</span></div>
+            <div class="member-meta-row"><span class="key">生年月日</span><span class="val">1994.01.14</span></div>
+            <div class="member-meta-row"><span class="key">出身</span><span class="val">韓国・ソウル</span></div>
+            <div class="member-meta-row"><span class="key">担当</span><span class="val">メインダンサー / ボーカル</span></div>
           </div>
-          <div class="member-card">
-            <div class="name-kr">첸 / Chen</div>
-            <div class="name-ja">チェン</div>
-            <div class="position">メインボーカル</div>
+          <span class="member-power">🌀 Teleportation</span>
+        </div>
+
+        <div class="member-card">
+          <div class="member-number">09</div>
+          <div class="member-name-kr">세훈 / Sehun</div>
+          <div class="member-name-ja">セフン</div>
+          <div class="member-divider"></div>
+          <div class="member-meta">
+            <div class="member-meta-row"><span class="key">本名</span><span class="val">呉世勳</span></div>
+            <div class="member-meta-row"><span class="key">生年月日</span><span class="val">1994.04.12</span></div>
+            <div class="member-meta-row"><span class="key">出身</span><span class="val">韓国・ソウル</span></div>
+            <div class="member-meta-row"><span class="key">担当</span><span class="val">ラップ / ボーカル</span></div>
+          </div>
+          <span class="member-power">💨 Wind</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- RECOMMENDED SONGS -->
+    <section id="songs">
+      <p class="section-title">Recommended</p>
+      <h2 class="section-heading">おすすめ曲</h2>
+      <div class="songs-grid">
+
+        <a class="song-card" href="https://www.youtube.com/results?search_query=EXO+Growl+MV+official" target="_blank" rel="noopener">
+          <div class="song-header">
+            <div class="yt-icon"><svg viewBox="0 0 24 24"><path d="M10 15l5.19-3L10 9v6zm11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg></div>
+            <div>
+              <div class="song-title">Growl（으르렁）</div>
+              <div class="song-album">XOXO — 2013</div>
+            </div>
+          </div>
+          <div class="song-desc">EXOを代表する超名曲。中毒性抜群のサビと完璧なダンスシンクロが圧巻。</div>
+          <span class="song-tag">定番 / 入門曲</span>
+        </a>
+
+        <a class="song-card" href="https://www.youtube.com/results?search_query=EXO+Monster+MV+official" target="_blank" rel="noopener">
+          <div class="song-header">
+            <div class="yt-icon"><svg viewBox="0 0 24 24"><path d="M10 15l5.19-3L10 9v6zm11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg></div>
+            <div>
+              <div class="song-title">Monster</div>
+              <div class="song-album">EXACT — 2016</div>
+            </div>
+          </div>
+          <div class="song-desc">ダークでパワフルなコンセプト。重厚なビートとEXOの迫力あるパフォーマンスが融合。</div>
+          <span class="song-tag">ダーク / パワフル</span>
+        </a>
+
+        <a class="song-card" href="https://www.youtube.com/results?search_query=EXO+Ko+Ko+Bop+MV+official" target="_blank" rel="noopener">
+          <div class="song-header">
+            <div class="yt-icon"><svg viewBox="0 0 24 24"><path d="M10 15l5.19-3L10 9v6zm11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg></div>
+            <div>
+              <div class="song-title">Ko Ko Bop</div>
+              <div class="song-album">THE WAR — 2017</div>
+            </div>
+          </div>
+          <div class="song-desc">レゲエ調のリズムが気持ちいいサマーチューン。EXOの新境地を開いた一曲。</div>
+          <span class="song-tag">夏 / 爽快</span>
+        </a>
+
+        <a class="song-card" href="https://www.youtube.com/results?search_query=EXO+Power+MV+official" target="_blank" rel="noopener">
+          <div class="song-header">
+            <div class="yt-icon"><svg viewBox="0 0 24 24"><path d="M10 15l5.19-3L10 9v6zm11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg></div>
+            <div>
+              <div class="song-title">Power</div>
+              <div class="song-album">THE WAR — 2017</div>
+            </div>
+          </div>
+          <div class="song-desc">ゲームの世界を舞台にしたポップでカラフルなMV。明るく元気になれる一曲。</div>
+          <span class="song-tag">ポップ / 元気</span>
+        </a>
+
+        <a class="song-card" href="https://www.youtube.com/results?search_query=EXO+Tempo+MV+official" target="_blank" rel="noopener">
+          <div class="song-header">
+            <div class="yt-icon"><svg viewBox="0 0 24 24"><path d="M10 15l5.19-3L10 9v6zm11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg></div>
+            <div>
+              <div class="song-title">Tempo</div>
+              <div class="song-album">Don't Mess Up My Tempo — 2018</div>
+            </div>
+          </div>
+          <div class="song-desc">変則的なリズムチェンジが特徴的。EXOのダンス力が最大限に活きる楽曲。</div>
+          <span class="song-tag">ダンス / テクニカル</span>
+        </a>
+
+        <a class="song-card" href="https://www.youtube.com/results?search_query=EXO+Love+Shot+MV+official" target="_blank" rel="noopener">
+          <div class="song-header">
+            <div class="yt-icon"><svg viewBox="0 0 24 24"><path d="M10 15l5.19-3L10 9v6zm11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg></div>
+            <div>
+              <div class="song-title">Love Shot</div>
+              <div class="song-album">Love Shot — 2018</div>
+            </div>
+          </div>
+          <div class="song-desc">セクシーでスタイリッシュなリパッケージ曲。中毒性の高いフックが魅力。</div>
+          <span class="song-tag">セクシー / クール</span>
+        </a>
+
+        <a class="song-card" href="https://www.youtube.com/results?search_query=EXO+Obsession+MV+official" target="_blank" rel="noopener">
+          <div class="song-header">
+            <div class="yt-icon"><svg viewBox="0 0 24 24"><path d="M10 15l5.19-3L10 9v6zm11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg></div>
+            <div>
+              <div class="song-title">Obsession</div>
+              <div class="song-album">OBSESSION — 2019</div>
+            </div>
+          </div>
+          <div class="song-desc">EXOと悪の分身X-EXOが対峙するコンセプト。攻撃的でエネルギッシュな一曲。</div>
+          <span class="song-tag">ダーク / エネルギッシュ</span>
+        </a>
+
+        <a class="song-card" href="https://www.youtube.com/results?search_query=EXO+Don't+Fight+the+Feeling+MV+official" target="_blank" rel="noopener">
+          <div class="song-header">
+            <div class="yt-icon"><svg viewBox="0 0 24 24"><path d="M10 15l5.19-3L10 9v6zm11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg></div>
+            <div>
+              <div class="song-title">Don't Fight the Feeling</div>
+              <div class="song-album">Special Album — 2021</div>
+            </div>
+          </div>
+          <div class="song-desc">復帰後の集大成。SF映画のようなMVと爽快なサウンドが融合した近年の代表曲。</div>
+          <span class="song-tag">爽快 / 近年の名曲</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- DISCOGRAPHY -->
+    <section id="discography">
+      <p class="section-title">Discography</p>
+      <h2 class="section-heading">ディスコグラフィー</h2>
+      <div class="albums-grid">
+        <div class="album-card">
+          <div class="album-year">2013</div>
+          <div class="album-title">XOXO</div>
+          <div class="album-title-ko">으르렁 (Growl) 収録</div>
+          <span class="album-type">1st Album</span>
+          <div class="album-tracks">収録曲：Wolf、Baby、Growl ほか</div>
+        </div>
+        <div class="album-card">
+          <div class="album-year">2014</div>
+          <div class="album-title">Overdose</div>
+          <div class="album-title-ko">중독 (Overdose)</div>
+          <span class="album-type">2nd Mini Album</span>
+          <div class="album-tracks">収録曲：Overdose、Run、Thunder ほか</div>
+        </div>
+        <div class="album-card">
+          <div class="album-year">2015</div>
+          <div class="album-title">EXODUS</div>
+          <div class="album-title-ko">엑소더스</div>
+          <span class="album-type">2nd Album</span>
+          <div class="album-tracks">収録曲：Call Me Baby、Love Me Right ほか</div>
+        </div>
+        <div class="album-card">
+          <div class="album-year">2016</div>
+          <div class="album-title">EXACT / Monster</div>
+          <div class="album-title-ko">몬스터 / 럭키원</div>
+          <span class="album-type">3rd Album</span>
+          <div class="album-tracks">収録曲：Monster、Lucky One、Lotto ほか</div>
+        </div>
+        <div class="album-card">
+          <div class="album-year">2017</div>
+          <div class="album-title">THE WAR</div>
+          <div class="album-title-ko">전쟁</div>
+          <span class="album-type">4th Album</span>
+          <div class="album-tracks">収録曲：Ko Ko Bop、Power ほか</div>
+        </div>
+        <div class="album-card">
+          <div class="album-year">2018</div>
+          <div class="album-title">Don't Mess Up My Tempo</div>
+          <div class="album-title-ko">템포</div>
+          <span class="album-type">5th Album</span>
+          <div class="album-tracks">収録曲：Tempo、Sign、Ooh La La La ほか</div>
+        </div>
+        <div class="album-card">
+          <div class="album-year">2019</div>
+          <div class="album-title">OBSESSION</div>
+          <div class="album-title-ko">옵세션</div>
+          <span class="album-type">6th Album</span>
+          <div class="album-tracks">収録曲：Obsession、Umpah Umpah ほか</div>
+        </div>
+        <div class="album-card">
+          <div class="album-year">2021</div>
+          <div class="album-title">Don't Fight the Feeling</div>
+          <div class="album-title-ko">돈 파이트 더 필링</div>
+          <span class="album-type">Special Album</span>
+          <div class="album-tracks">収録曲：Don't Fight the Feeling ほか</div>
+        </div>
+        <div class="album-card">
+          <div class="album-year">2023</div>
+          <div class="album-title">EXIST</div>
+          <div class="album-title-ko">존재</div>
+          <span class="album-type">7th Album</span>
+          <div class="album-tracks">収録曲：Let Me In、Hear Me Out ほか</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SUBUNITS -->
+    <section id="subunits">
+      <p class="section-title">Sub-units</p>
+      <h2 class="section-heading">サブユニット</h2>
+      <div class="subunits-grid">
+        <div class="subunit-card">
+          <div class="subunit-name">EXO-CBX</div>
+          <div class="subunit-members">Chen · Baekhyun · Xiumin</div>
+          <div class="subunit-debut">デビュー：2016年10月</div>
+          <div class="subunit-works">
+            <span class="subunit-work">Hey Mama!</span>
+            <span class="subunit-work">Blooming Days</span>
+            <span class="subunit-work">Girls</span>
           </div>
         </div>
-      </section>
-    </main>
+        <div class="subunit-card">
+          <div class="subunit-name">EXO-SC</div>
+          <div class="subunit-members">Sehun · Chanyeol</div>
+          <div class="subunit-debut">デビュー：2019年7月</div>
+          <div class="subunit-works">
+            <span class="subunit-work">1 Billion Views</span>
+            <span class="subunit-work">What a Life</span>
+            <span class="subunit-work">Telephone</span>
+          </div>
+        </div>
+        <div class="subunit-card">
+          <div class="subunit-name">EXO-K</div>
+          <div class="subunit-members">韓国ユニット（デビュー当初）</div>
+          <div class="subunit-debut">活動期間：2012 —</div>
+          <div class="subunit-works">
+            <span class="subunit-work">MAMA</span>
+            <span class="subunit-work">Wolf</span>
+            <span class="subunit-work">Growl</span>
+          </div>
+        </div>
+        <div class="subunit-card">
+          <div class="subunit-name">EXO-M</div>
+          <div class="subunit-members">中国ユニット（デビュー当初）</div>
+          <div class="subunit-debut">活動期間：2012 — 2014</div>
+          <div class="subunit-works">
+            <span class="subunit-work">MAMA</span>
+            <span class="subunit-work">Wolf</span>
+            <span class="subunit-work">Growl</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <footer>
-      EXO Info — unofficial fan site &copy; 2026
+      EXO Info &nbsp;·&nbsp; unofficial fan site &nbsp;·&nbsp; For <span class="exo-l">EXO-L</span> &nbsp;·&nbsp; &copy; 2026
     </footer>
+
   </body>
 </html>

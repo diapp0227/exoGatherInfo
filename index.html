@@ -247,7 +247,7 @@
       .player-btn:hover { border-color: var(--gold); color: var(--gold); }
       .player-btn-main  { border-color: var(--gold) !important; color: var(--gold) !important; }
       /* セットリスト — 再生状態 */
-      .sl-item { cursor: pointer; border-radius: 4px; padding: 0.15rem 0.3rem; transition: background 0.15s; }
+      .sl-item { cursor: pointer; border-radius: 4px; padding: 0.15rem 0.3rem; transition: background 0.15s; text-decoration: none; color: inherit; }
       .sl-item:hover { background: rgba(201,168,76,0.07); }
       .sl-playing { background: rgba(201,168,76,0.13) !important; border-left: 2px solid var(--gold); padding-left: 6px !important; }
       .sl-playing .sl-num,
@@ -1037,44 +1037,21 @@
       <div class="concert-grid">
 
         <!-- プレイヤーカード（全幅） -->
-        <div class="concert-card" style="grid-column: 1 / -1;">
-          <div class="concert-card-title">SETLIST PLAYER</div>
-
-          <!-- 初期状態：スタートボタン -->
-          <div id="player-init">
-            <p class="player-hint">
-              セットリスト30曲をYouTube公式動画で順次再生します。<br>
-              下のリストの曲名をクリックするとその曲にジャンプできます。
-            </p>
-            <button class="player-start-btn" onclick="exoPlayer.init()">▶&ensp;セットリスト再生スタート</button>
-          </div>
-
-          <!-- 再生中状態（JS で表示） -->
-          <div id="player-active" style="display:none;">
-            <div class="player-now-playing">
-              <span class="player-nowp-label">NOW PLAYING</span>
-              <span class="player-nowp-num" id="player-num">—</span>
-              <span class="player-nowp-title" id="player-title">—</span>
-            </div>
-            <div class="player-yt-wrap">
-              <div id="yt-player"></div>
-            </div>
-            <div class="player-controls">
-              <button class="player-btn" onclick="exoPlayer.prev()">⏮ Prev</button>
-              <button class="player-btn" id="btn-play-pause" onclick="exoPlayer.togglePlay()">▶ Play</button>
-              <button class="player-btn" onclick="exoPlayer.next()">Next ⏭</button>
-              <button class="player-btn player-btn-mute" id="btn-mute" onclick="exoPlayer.toggleMute()">🔇 音声オン</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- セットリスト（全幅・クリックでジャンプ） -->
+        <!-- セットリスト（全幅） -->
         <div class="concert-card" style="grid-column: 1 / -1;">
           <div class="concert-card-title">
             SETLIST — ソウル公演 4/10-12 実績（全30曲）
-            <span class="setlist-click-hint">曲名クリックでジャンプ</span>
+            <span class="setlist-click-hint">曲名クリックで YouTube へ</span>
           </div>
-          <div class="setlist-grid" id="exo-setlist-grid">
+          <p class="player-hint" style="margin-bottom:1rem;">
+            下のボタンで30曲まとめて再生リストとして開けます。各曲名をクリックすると個別に開きます。
+          </p>
+          <a class="player-start-btn"
+             href="https://www.youtube.com/watch_videos?video_ids=KH6ZwnqZ7Wo,KSH-FVVtTf0,TI0DGvqKZTI,MzgmGnNm3l4,NsubiQ0nGbE,FpoX3HJPZd8,LHVF5UyKFwg,e6AIFCuQR-E,c4_Pc4gZELo,gK8YC0nxNe0,pSudEWBAYRE,sGRv8ZBLuW0,2IkoKhr6Tss,VgI8_hZFZJE,iwd8N6K-sLk,IdssuxDdqKk,yWfsla_Uh80,RuqaVryDRd0,I3dezFzsNss,Qx1V-GRT0Fw,E-UTLImG0ss,xtzi4jdpKhI,WhWNDc2_0Xo,nGG42t7pm5Y,iWsw98mCssg,BWfKkqo1Mk8,BCRbKttp5YY,yFbK03_tPaM,2fGLkavJYA8,9uSkhlKNKSY"
+             target="_blank" rel="noopener noreferrer">
+            ▶&ensp;YouTubeで全曲再生リストを開く
+          </a>
+          <div class="setlist-grid" id="exo-setlist-grid" style="margin-top:1.2rem;">
             <!-- player.js が動的生成 -->
           </div>
         </div>

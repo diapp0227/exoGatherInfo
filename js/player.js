@@ -28,157 +28,32 @@ const EXO_SETLIST = [
   { n: '25', title: 'Forever',                 vid: 'iWsw98mCssg' },
   { n: '26', title: 'Crown',                   vid: 'BWfKkqo1Mk8' },
   { n: '27', title: 'Back Pocket',             vid: 'BCRbKttp5YY' },
-  { n: '28', title: 'Paradise',               vid: 'yFbK03_tPaM' },
-  { n: '29', title: 'Flatline',               vid: '2fGLkavJYA8', encore: true },
-  { n: '30', title: 'Angel',                  vid: '9uSkhlKNKSY', encore: true },
+  { n: '28', title: 'Paradise',                vid: 'yFbK03_tPaM' },
+  { n: '29', title: 'Flatline',                vid: '2fGLkavJYA8', encore: true },
+  { n: '30', title: 'Angel',                   vid: '9uSkhlKNKSY', encore: true },
 ];
 
-const PLAYLIST_IDS = EXO_SETLIST.map(s => s.vid).join(',');
+function buildSetlist() {
+  const grid = document.getElementById('exo-setlist-grid');
+  if (!grid) return;
 
-const exoPlayer = (() => {
-  let ytPlayer = null;
-  let ready    = false;
-  let muted    = true;
+  EXO_SETLIST.forEach(song => {
+    const a = document.createElement('a');
+    a.className = 'sl-item' + (song.encore ? ' sl-encore-song' : '');
+    a.href = 'https://www.youtube.com/watch?v=' + song.vid;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.innerHTML =
+      '<span class="sl-num">' + song.n + '</span>' +
+      '<span class="sl-title">' + song.title +
+      (song.encore ? ' <span class="sl-encore-badge">ENC</span>' : '') +
+      '</span>';
+    grid.appendChild(a);
+  });
+}
 
-  /* ── セットリストをDOMに生成 ── */
-  function buildSetlist() {
-    const grid = document.getElementById('exo-setlist-grid');
-    if (!grid) return;
-
-    EXO_SETLIST.forEach((song, idx) => {
-      const div = document.createElement('div');
-      div.className = 'sl-item' + (song.encore ? ' sl-encore-song' : '');
-      div.innerHTML =
-        '<span class="sl-num">' + song.n + '</span>' +
-        '<span class="sl-title">' + song.title +
-        (song.encore ? ' <span class="sl-encore-badge">ENC</span>' : '') +
-        '</span>';
-      div.addEventListener('click', () => jumpTo(idx));
-      grid.appendChild(div);
-    });
-  }
-
-  /* ── ユーザーが「再生スタート」を押したとき ── */
-  function init() {
-    document.getElementById('player-init').style.display   = 'none';
-    document.getElementById('player-active').style.display = 'block';
-
-    // YT API が既にロード済みならそのまま Player を生成する
-    if (window.YT && window.YT.Player) {
-      createPlayer();
-      return;
-    }
-
-    // onYouTubeIframeAPIReady はスクリプト追加前に定義しておく
-    window.onYouTubeIframeAPIReady = createPlayer;
-
-    const tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
-    document.head.appendChild(tag);
-  }
-
-  /* ── YT.Player を生成 ── */
-  function createPlayer() {
-    ytPlayer = new YT.Player('yt-player', {
-      videoId: EXO_SETLIST[0].vid,
-      playerVars: {
-        autoplay:       1,
-        mute:           1,   // ミュートで自動再生 → ブラウザ制限を回避
-        playlist:       PLAYLIST_IDS,
-        rel:            0,
-        modestbranding: 1,
-      },
-      events: {
-        onReady(e) {
-          ready = true;
-          e.target.playVideo();
-          updateUI();
-        },
-        onStateChange(e) {
-          if (e.data === YT.PlayerState.PLAYING) updateUI();
-          updatePlayBtn();
-        },
-        onError() {
-          // 埋め込み不可・地域制限 → 次曲へスキップ
-          if (ytPlayer && ready) ytPlayer.nextVideo();
-        },
-      },
-    });
-  }
-
-  /* ── コントロール ── */
-  function prev() {
-    if (!ytPlayer || !ready) return;
-    ytPlayer.previousVideo();
-  }
-  function next() {
-    if (!ytPlayer || !ready) return;
-    ytPlayer.nextVideo();
-  }
-  function jumpTo(idx) {
-    if (!ytPlayer || !ready) return;
-    ytPlayer.playVideoAt(idx);
-  }
-
-  function togglePlay() {
-    if (!ytPlayer || !ready) return;
-    ytPlayer.getPlayerState() === YT.PlayerState.PLAYING
-      ? ytPlayer.pauseVideo()
-      : ytPlayer.playVideo();
-  }
-
-  function toggleMute() {
-    if (!ytPlayer || !ready) return;
-    if (muted) {
-      ytPlayer.unMute();
-      muted = false;
-    } else {
-      ytPlayer.mute();
-      muted = true;
-    }
-    updateMuteBtn();
-  }
-
-  /* ── UI 更新 ── */
-  function updateUI() {
-    if (!ytPlayer || !ready) return;
-    const idx  = ytPlayer.getPlaylistIndex();
-    if (idx < 0 || idx >= EXO_SETLIST.length) return;
-    const song = EXO_SETLIST[idx];
-
-    document.getElementById('player-num').textContent   = song.n;
-    document.getElementById('player-title').textContent = song.title;
-
-    document.querySelectorAll('#exo-setlist-grid .sl-item').forEach((el, i) => {
-      el.classList.toggle('sl-playing', i === idx);
-    });
-
-    const active = document.querySelector('#exo-setlist-grid .sl-playing');
-    if (active) active.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    updatePlayBtn();
-    updateMuteBtn();
-  }
-
-  function updatePlayBtn() {
-    const btn = document.getElementById('btn-play-pause');
-    if (!btn || !ytPlayer) return;
-    const playing = ytPlayer.getPlayerState() === YT.PlayerState.PLAYING;
-    btn.textContent = playing ? '⏸ Pause' : '▶ Play';
-    btn.classList.toggle('player-btn-main', playing);
-  }
-
-  function updateMuteBtn() {
-    const btn = document.getElementById('btn-mute');
-    if (!btn) return;
-    btn.textContent = muted ? '🔇 音声オン' : '🔊 ミュート';
-  }
-
-  /* ── DOM 準備後にセットリスト生成 ── */
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', buildSetlist);
-  } else {
-    buildSetlist();
-  }
-
-  return { init, prev, next, jumpTo, togglePlay, toggleMute };
-})();
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', buildSetlist);
+} else {
+  buildSetlist();
+}

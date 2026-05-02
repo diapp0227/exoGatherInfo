@@ -247,11 +247,7 @@
       .player-btn:hover { border-color: var(--gold); color: var(--gold); }
       .player-btn-main  { border-color: var(--gold) !important; color: var(--gold) !important; }
       /* セットリスト — 再生状態 */
-      .sl-item { cursor: pointer; border-radius: 4px; padding: 0.15rem 0.3rem; transition: background 0.15s; text-decoration: none; color: inherit; }
-      .sl-item:hover { background: rgba(201,168,76,0.07); }
-      .sl-playing { background: rgba(201,168,76,0.13) !important; border-left: 2px solid var(--gold); padding-left: 6px !important; }
-      .sl-playing .sl-num,
-      .sl-playing .sl-title { color: var(--gold) !important; font-weight: 600; }
+      .sl-item:hover { background: rgba(201,168,76,0.04); }
       .sl-encore-badge {
         font-size: 0.6rem; padding: 0.1rem 0.4rem;
         background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3);
@@ -344,17 +340,31 @@
       .access-row .a-label { color: var(--gold); min-width: 28px; }
       .access-row .a-val { color: var(--text-sub); }
 
-      /* setlist */
-      .setlist-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 0.35rem 1.2rem;
+      /* setlist — accordion */
+      .setlist-grid { display: flex; flex-direction: column; gap: 0; }
+      .sl-item { border-radius: 4px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+      .sl-item:last-child { border-bottom: none; }
+      .sl-row { display: flex; align-items: center; min-height: 44px; }
+      .sl-yt { flex: 1; display: flex; gap: 0.5rem; align-items: center; padding: 0.35rem 0.3rem; text-decoration: none; color: inherit; font-size: 0.82rem; min-height: 44px; }
+      .sl-yt:hover .sl-title { color: var(--gold); }
+      .sl-num { color: var(--gold); font-size: 0.68rem; min-width: 24px; flex-shrink: 0; }
+      .sl-title { color: var(--text-sub); line-height: 1.3; }
+      .sl-toggle {
+        flex-shrink: 0; background: none;
+        border: 1px solid var(--border); color: var(--text-sub);
+        border-radius: 4px; padding: 0.28rem 0.55rem;
+        font-size: 0.68rem; cursor: pointer;
+        transition: border-color 0.15s, color 0.15s;
+        margin-right: 0.3rem; white-space: nowrap; min-height: 32px;
       }
-      .sl-item { display: flex; gap: 0.5rem; font-size: 0.8rem; align-items: baseline; }
-      .sl-num { color: var(--gold); font-size: 0.68rem; min-width: 22px; }
-      .sl-title { color: var(--text-sub); }
-      .sl-encore { grid-column: 1 / -1; padding-top: 0.5rem; border-top: 1px solid var(--border); margin-top: 0.3rem; display: flex; gap: 0.5rem; font-size: 0.8rem; align-items: baseline; }
-      .sl-encore-label { font-size: 0.65rem; color: var(--gold); letter-spacing: 0.1em; min-width: 52px; }
+      .sl-toggle:hover, .sl-toggle[aria-expanded="true"] { border-color: var(--gold); color: var(--gold); }
+      .sl-chant { display: none; padding: 0.5rem 0.4rem 0.7rem 1.5rem; background: rgba(255,255,255,0.02); border-top: 1px solid rgba(255,255,255,0.05); }
+      .sl-chant.open { display: block; }
+      .sl-chant-row { display: flex; gap: 0.6rem; font-size: 0.8rem; margin-bottom: 0.3rem; line-height: 1.45; }
+      .sl-chant-row:last-child { margin-bottom: 0; }
+      .sl-chant-lbl { color: var(--gold); font-size: 0.67rem; min-width: 72px; flex-shrink: 0; font-weight: 600; padding-top: 0.1rem; }
+      .sl-chant-txt { color: var(--text); }
+      .sl-encore-song .sl-num { opacity: 0.75; }
 
       /* checklist */
       .checklist { display: flex; flex-direction: column; gap: 0.5rem; }
@@ -1099,7 +1109,7 @@
         <div class="concert-card" style="grid-column: 1 / -1;">
           <div class="concert-card-title">
             SETLIST — ソウル公演 4/10-12 実績（全30曲）
-            <span class="setlist-click-hint">曲名クリックで YouTube へ</span>
+            <span class="setlist-click-hint">曲名→YouTube / コール→展開</span>
           </div>
           <p class="player-hint" style="margin-bottom:1rem;">
             下のボタンで30曲まとめて再生リストとして開けます。各曲名をクリックすると個別に開きます。

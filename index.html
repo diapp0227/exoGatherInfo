@@ -372,6 +372,15 @@
       .goods-price { color: var(--gold); font-weight: 600; }
       .goods-note { font-size: 0.78rem; color: var(--text-sub); margin-top: 0.6rem; line-height: 1.5; }
 
+      /* day-1 report */
+      .report-block { margin-bottom: 1rem; }
+      .report-block-title { font-size: 0.8rem; font-weight: 700; color: var(--gold); margin-bottom: 0.35rem; letter-spacing: 0.03em; }
+      .report-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.3rem; }
+      .report-list li { font-size: 0.82rem; color: var(--text); line-height: 1.5; padding-left: 0.9rem; position: relative; }
+      .report-list li::before { content: "–"; position: absolute; left: 0; color: var(--gold); }
+      .report-note { color: var(--text-sub) !important; font-size: 0.75rem !important; }
+      .report-note a { color: var(--gold); }
+
       /* weather */
       .weather-bar {
         display: flex;
@@ -932,7 +941,7 @@
 
       <!-- バナー -->
       <div class="concert-banner">
-        <div class="concert-live-badge">● UPCOMING — 2026.05.03 SUN</div>
+        <div class="concert-live-badge">● TODAY — 2026.05.03 SUN（Day 2）</div>
         <div class="concert-tour-name">EXO PLANET #6 — EXhOrizon in JAPAN</div>
         <div class="concert-title">名古屋公演</div>
         <div class="concert-meta">
@@ -1036,7 +1045,56 @@
       <!-- グリッド2：セトリ / 持ち物 / 周辺 -->
       <div class="concert-grid">
 
-        <!-- プレイヤーカード（全幅） -->
+        <!-- 初日（5/2）レポ（全幅） -->
+        <div class="concert-card" style="grid-column: 1 / -1;">
+          <div class="concert-card-title">DAY 1 REPORT — 5/2（土）初日まとめ</div>
+
+          <!-- 物販 -->
+          <div class="report-block">
+            <div class="report-block-title">🛍 物販</div>
+            <ul class="report-list">
+              <li>会場販売時間：<strong>13:00〜終演後約30分</strong>（列がなくなり次第終了）</li>
+              <li>チケットなしでも物販ブース利用可</li>
+              <li>グッズ購入特典くじ：¥7,000で1枚 / ¥14,000で2枚 / ¥28,000で4枚</li>
+              <li>ペンライト Ver.3.0（¥7,500）は人気アイテム——<strong>早めの購入推奨</strong></li>
+              <li class="report-note">※ 5/2当日の売り切れ状況・混雑ピーク時間帯の詳細ファンレポは収集中です。
+                <a href="https://x.com/search?q=%23EXO%E5%90%8D%E5%8F%A4%E5%B1%8B&src=typed_query&f=live" target="_blank" rel="noopener noreferrer">#EXO名古屋</a> で最新情報をご確認ください。</li>
+            </ul>
+          </div>
+
+          <!-- セトリ -->
+          <div class="report-block">
+            <div class="report-block-title">🎵 セトリ（ソウル公演 4/10-12 実績・日本公演もほぼ同構成の見込み）</div>
+            <ul class="report-list">
+              <li>全30曲（本編28曲 ＋ アンコール2曲）</li>
+              <li>オープニング：MAMA → Monster → Overdose（Wolf イントロ付き）の流れ</li>
+              <li>アンコール確定：<strong>Flatline → Angel</strong></li>
+              <li class="report-note">※ 日本公演オリジナルアレンジ・MC内容の詳細は
+                <a href="https://www.mainichikpop.com/playlist/exo-planet-6-exhorizon/" target="_blank" rel="noopener noreferrer">まいにちKポ速報</a> /
+                <a href="https://www.livefans.jp/events/1905560" target="_blank" rel="noopener noreferrer">LiveFans</a> を参照。</li>
+            </ul>
+          </div>
+
+          <!-- 会場・天気 -->
+          <div class="report-block">
+            <div class="report-block-title">🏟 会場・天気</div>
+            <ul class="report-list">
+              <li>コインロッカー：1Fロビーに有料ロッカーあり（イベント時限定）——<strong>早い者勝ちで埋まりやすい</strong></li>
+              <li>最寄り：JR笠寺駅 徒歩約3分。終演後は笠寺駅〜名古屋駅間が大混雑するため時間に余裕を</li>
+              <li>5/3 予報：最高23℃ / 降水確率60%——折り畳み傘 or レインコート必携</li>
+            </ul>
+          </div>
+
+          <!-- 情報源 -->
+          <p style="font-size:0.72rem;color:var(--text-sub);margin-top:0.8rem;">
+            情報源：
+            <a href="https://exo-jp.net/news/detail.php?id=1132977" target="_blank" rel="noopener noreferrer">exo-jp.net グッズ会場販売情報</a> /
+            <a href="https://www.mainichikpop.com/playlist/exo-planet-6-exhorizon/" target="_blank" rel="noopener noreferrer">まいにちKポ</a> /
+            <a href="https://www.livefans.jp/events/1905560" target="_blank" rel="noopener noreferrer">LiveFans</a> /
+            <a href="https://www.nespa.or.jp/hall/faq/" target="_blank" rel="noopener noreferrer">日本ガイシ スポーツプラザ FAQ</a>
+          </p>
+        </div>
+
         <!-- セットリスト（全幅） -->
         <div class="concert-card" style="grid-column: 1 / -1;">
           <div class="concert-card-title">
